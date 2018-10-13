@@ -69,4 +69,4 @@ print(players[-1]) # starts from the back using negative numbers
 print(players[2:]) #prints Pele and Maradona
 players.append("Neymar") # appends neymar to the end of the list
 print(players)
-print(players[1:3])
+print(players[1:3]) # From position 1 to 3, not adding num 3 info
