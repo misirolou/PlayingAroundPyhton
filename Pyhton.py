@@ -47,20 +47,6 @@ print(floor(3.7)) #rounds number to lower case
 print(ceil(3.7)) #rounds number to upper case
 print(sqrt(12)) #does the square root of the number
 
-#getting input from user
-print("Getting users input")
-name = input("Enter your name: ")
-age = input("What is your age: ")
-print("Hello " + name + "!")  
-print("You are " + age)
-
-#building a calculator
-print("Building a calculator")
-num1 = input("Enter a number: ")
-num2 = input("Enter another number: ")
-result = float(num1) + float(num2)
-print(result)
-
 #Lists 
 players = ["Messi", "Ronaldo", "Pele", "Maradona"]
 print(players) #prints list
