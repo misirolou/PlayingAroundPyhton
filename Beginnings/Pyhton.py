@@ -4,6 +4,7 @@ print("Hello  World")
 #playing around with variables
 character_name = "John"
 character_age = 50
+
 #converting int to string
 s = str(character_age)
 ###### TRY IT OUT ######
@@ -46,13 +47,3 @@ from math import *
 print(floor(3.7)) #rounds number to lower case
 print(ceil(3.7)) #rounds number to upper case
 print(sqrt(12)) #does the square root of the number
-
-#Lists 
-players = ["Messi", "Ronaldo", "Pele", "Maradona"]
-print(players) #prints list
-print(players[2]) # prints Pele
-print(players[-1]) # starts from the back using negative numbers
-print(players[2:]) #prints Pele and Maradona
-players.append("Neymar") # appends neymar to the end of the list
-print(players)
-print(players[1:3]) # From position 1 to 3, not adding num 3 info
