@@ -1,4 +1,4 @@
-# print hello world
+# print hello world, how every programmer starts
 print("Hello  World")
 
 #playing around with variables
@@ -43,6 +43,7 @@ print(min(3, 1)) # 1 is the smallest
 print(round(3.7)) # rounds number to 4
 print(round(3.4)) # rounds number to 3
 
+#trying different maths approaches
 from math import *
 print(floor(3.7)) #rounds number to lower case
 print(ceil(3.7)) #rounds number to upper case
