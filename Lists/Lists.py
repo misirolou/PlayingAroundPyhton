@@ -1,4 +1,6 @@
-#Lists 
+#The fundamental beginnings around Lists
+print("Playing around with lists")
+
 players = ["Messi", "Ronaldo", "Pele", "Maradona"]
 print(players) #prints list
 print(players[2]) # prints Pele
@@ -25,4 +27,3 @@ print(lucky_numbers)
 lucky_numbers.reverse() #Reverses order of list
 print(lucky_numbers)
 Friends = People.copy() #copies list that already exists
-
