@@ -20,3 +20,10 @@ for name in arrraytest: #prints each of the names in the array
 print("To go through a range of options")
 for index in range(3, 11): #prints from 3 to 10
     print(index)
+
+print("Testing if statements with range")
+for i in range(5):
+    if i is 1:
+        print("I am number 1")
+    else:
+        print("I am not number 1")
