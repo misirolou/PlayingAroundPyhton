@@ -19,6 +19,9 @@ print(student1.on_honor_roll())
 from Classes import Chef
 from Classes import FrenchChef
 
+#Gives an error in code if the function defined doesnt exist
+#assert hasattr(FrenchChef, 'make_baguette'), "This funcition doesnt exist!"
+
 myChef = Chef()
 myChef.make_pasta()
 myFrenchChef = FrenchChef()
