@@ -1,3 +1,4 @@
+#Three main modules to be used os - operating system, time, sys -system
 import os
 import time
 import sys
