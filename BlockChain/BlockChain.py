@@ -8,8 +8,7 @@ from time import time
 from uuid import uuid4
 from textwrap import dedent
 
-from flask import Flask
-from flask import jsonify
+from flask import Flask, jsonify, request
 
 #Class is responsible for managing the chain, storing transactions and contains some helper methods.
 class Blockchain(object):
@@ -48,9 +47,9 @@ class Blockchain(object):
 
     def new_tranaction(self, sender, recipient, amount):
         self.current_transactions.append({
-            'sender': sender,
-            'recipient': recipient,
-            'amount': amount,
+            'sender' : sender,
+            'recipient' : recipient,
+            'amount' : amount,
         })
         return self.last_block['index'] + 1
     
@@ -68,7 +67,7 @@ class Blockchain(object):
     @staticmethod
     def hash(block):
 #Must make sure Dictionary is Ordered or else we´ll have inconsistent hashes
-        block_string = json.dump(block, sort_keys=True).encode()
+        block_string = json.dumps(block, sort_keys=True).encode()
         return hashlib.sha256(block_string).hexdigest()
 
 # Simple Proof of work Algortihm
@@ -105,11 +104,49 @@ blockchain = Blockchain()
 
 @app.route('/mine', methods=['GET'])
 def mine():
-    return "Mining a  new block"
+#We run the proof of work algorithm to get the next proof...
+    last_block = blockchain.last_block
+    last_proof = last_block['proof']
+    proof = blockchain.proof_of_work(last_proof)
 
+#We need to receive some reward for finding the proof
+#Sender is "0" to siginify that this node has mined a new coin
+    blockchain.new_tranaction(
+        sender="0",
+        recipient=node_identifier,
+        amount=1,
+    )
+
+#Forge the new block by adding it to the chain
+    previous_hash = blockchain.hash(last_block)
+    block = blockchain.new_block(proof, previous_hash)
+
+    response = {
+        'message' : "New Block Forged",
+        'index' : block['index'],
+        'transactions' : block['transactions'],
+        'proof' : block['proof'],
+        'previous_hash' : block['previous_hash'],
+    }
+
+    return jsonify(response), 200
+
+#Preparing the new transactions through this simple API method POST
 @app.route('/transactions/new', methods=['POST'])
 def new_tranaction():
-    return "Adding a new transaction"
+    values = request.get_json()
+
+    #Check the required fields are in the POSTed data
+    required = ['sender', 'recipient', 'amount']
+    if not all(k in values for k in required):
+        return 'Missing values', 400
+
+    #Create a new transaction
+    index = blockchain.new_tranaction(values['sender'], values['recipient'], values['amount'])
+
+    print(values)
+    response = {'message': f'Transaction will be added to the Block {index}'}
+    return jsonify(response), 201
 
 @app.route('/chain', methods=['GET'])
 def full_chain():
@@ -121,19 +158,4 @@ def full_chain():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
-
-''' Example of what a single block would look like and what it should contain
-block = {
-    'index': 1,
-    'timestamp': 1506057125.900785,
-    'transactions': [
-        {
-            'sender': "8527147fe1f5426f9dd545de4b27ee00",
-            'recipient': "a77f5cdfa2934df3954a5c7c7da5df1f",
-            'amount': 5,
-        }
-    ],
-    'proof': 324984774000,
-    'previous_hash': "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
-}'''
-
+    
