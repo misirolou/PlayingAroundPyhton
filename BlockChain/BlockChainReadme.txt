@@ -18,6 +18,17 @@ For GET responses you simply try to receive the information needed
 http://127.0.0.1:5000/mine : Used to mine information
 http://127.0.0.1:5000/chain : Used to verify blocks created
 
+For registering purposes, to do some verifications, allowing to register nodes all over the place through different posts or IPs
+POST http://127.0.0.1:5000/nodes/register
+Adding info in JSON format
+Example:
+{
+    "nodes" : ["http://127.0.0.1:5001"]
+}
+
+For the Consensus algorithm we do a GET method
+http://127.0.0.1:5000/nodes/resolve: Where we can replace the chains according to which one is longer depending on each node registered
+
 ''' Example of what a single block would look like and what it should contain
 block = {
     'index': 1,
